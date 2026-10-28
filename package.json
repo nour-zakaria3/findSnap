@@ -1,0 +1,36 @@
+{
+  "name": "snapfind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predev": "node scripts/copy-assets.mjs",
+    "prebuild": "node scripts/copy-assets.mjs",
+    "feasibility": "node scripts/feasibility.mjs clip-b32+opus-ar-en",
+    "test:e2e": "node tests/e2e/demo-flow.mjs http://localhost:4173/",
+    "test:smoke": "node tests/e2e/smoke.mjs http://localhost:4173/",
+    "models:fetch": "node scripts/fetch-models.mjs",
+    "screenshots": "node scripts/make-screenshots.mjs public/samples"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.2",
+    "tesseract.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@tesseract.js-data/ara": "^1.0.0",
+    "@tesseract.js-data/eng": "^1.0.0",
+    "fake-indexeddb": "^6.2.6",
+    "jsdom": "^29.1.1",
+    "playwright": "1.63.0",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  },
+  "type": "module"
+}

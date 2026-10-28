@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SnapFind</title>
+  <meta name="description" content="Local-first AI image search in Arabic and English" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='13' cy='13' r='9' fill='none' stroke='%232563eb' stroke-width='4'/%3E%3Cpath d='M20 20l8 8' stroke='%232563eb' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <h1 data-i18n="appTitle">SnapFind</h1>
+      <p class="tagline" data-i18n="tagline"></p>
+    </div>
+    <button id="lang-toggle" class="btn ghost" type="button" data-i18n="lang"></button>
+  </header>
+
+  <div id="file-protocol" class="banner error" hidden>
+    لا يمكن فتح SnapFind بالنقر المزدوج على index.html. شغّل الملف <b>start.bat</b> ثم افتح http://localhost:4173/<br />
+    SnapFind can't run from a file:// page. Double-click <b>start.bat</b> (Windows) or run <code>./start.sh</code>, then open http://localhost:4173/
+  </div>
+  <script>if (location.protocol === 'file:') document.getElementById('file-protocol').hidden = false;</script>
+  <div id="testdb-banner" class="banner warn" hidden></div>
+  <div id="fatal" class="banner error" role="alert" hidden></div>
+
+  <main>
+    <section class="card intro">
+      <p class="privacy" data-i18n="privacy.note"></p>
+      <p class="muted" id="network-note"></p>
+      <details>
+        <summary data-i18n="how.title"></summary>
+        <ol><li data-i18n="how.1"></li><li data-i18n="how.2"></li><li data-i18n="how.3"></li></ol>
+      </details>
+    </section>
+
+    <section class="card" id="model-panel" aria-live="polite">
+      <h2 data-i18n="model.title"></h2>
+      <p id="model-status" class="status-line"></p>
+      <progress id="model-progress" max="1" value="0" hidden></progress>
+      <p id="model-timings" class="muted small" hidden></p>
+      <button id="model-retry" class="btn" type="button" hidden data-i18n="model.retry"></button>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="upload.title"></h2>
+      <div id="dropzone" class="dropzone" tabindex="0">
+        <span data-i18n="upload.drop"></span>
+        <label class="btn primary">
+          <span data-i18n="upload.choose"></span>
+          <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden />
+        </label>
+        <button id="samples-btn" class="btn" type="button" data-i18n="upload.samples"></button>
+        <p class="muted small" data-i18n="upload.hint"></p>
+      </div>
+      <ul id="upload-messages" class="messages" aria-live="polite"></ul>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="search.title"></h2>
+      <form id="search-form" class="search" role="search">
+        <input id="search-input" type="search" autocomplete="off" />
+        <button class="btn primary" type="submit" data-i18n="search.button"></button>
+        <button id="search-clear" class="btn ghost" type="button" data-i18n="search.clear"></button>
+      </form>
+      <div class="examples"><span class="muted small" data-i18n="search.examples"></span> <span id="examples"></span></div>
+      <p id="search-status" class="status-line" aria-live="polite"></p>
+      <div id="results" class="grid"></div>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <h2 data-i18n="library.title"></h2>
+        <span id="library-count" class="muted"></span>
+      </div>
+      <p id="library-empty" class="empty" data-i18n="library.empty" hidden></p>
+      <div id="library" class="grid"></div>
+      <div class="row tools">
+        <button id="export-btn" class="btn" type="button" data-i18n="action.export"></button>
+        <label class="btn"><span data-i18n="action.import"></span><input id="import-input" type="file" accept="application/json,.json" hidden /></label>
+        <button id="delete-all-btn" class="btn danger" type="button" data-i18n="action.deleteAll"></button>
+        <span id="storage-status" class="muted small"></span>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
